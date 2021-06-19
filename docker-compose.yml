@@ -1,0 +1,19 @@
+version: '2'
+
+services:
+  apache:
+    image: 'bitnami/apache:latest'
+    ports:
+      - '80:8080'
+      - '443:8443'
+    volumes:
+      - ./www:/app
+
+# Specify the network subnet as it can conflict with OpenVPN otherwise.
+# Make sure that the subnet assigned is not the same in use by OpenVPN.
+networks:
+  default:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.16.0.0/24
